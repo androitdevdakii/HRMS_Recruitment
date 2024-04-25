@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using HRMS_Recruitment.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HRMS_RecruitmentContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HRMS_RecruitmentContext") ?? throw new InvalidOperationException("Connection string 'HRMS_RecruitmentContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
