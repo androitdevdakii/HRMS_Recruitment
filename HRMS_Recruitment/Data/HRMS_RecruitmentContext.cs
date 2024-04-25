@@ -17,5 +17,6 @@ namespace HRMS_Recruitment.Data
         public DbSet<HRMS_Recruitment.Models.JobPosition> JobPosition { get; set; } = default!;
         public DbSet<HRMS_Recruitment.Models.JobDepartment> JobDepartment { get; set; } = default!;
         public DbSet<HRMS_Recruitment.Models.JobPositionVacancy> JobPositionVacancy { get; set; } = default!;
+        public DbSet<HRMS_Recruitment.Models.JobApplication> JobApplication { get; set; } = default!;
     }
 }
