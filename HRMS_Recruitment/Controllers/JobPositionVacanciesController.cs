@@ -48,7 +48,14 @@ namespace HRMS_Recruitment.Controllers
         // GET: JobPositionVacancies/Create
         public IActionResult Create()
         {
-            ViewData["JobPositionId"] = new SelectList(_context.JobPosition, "Id", "Id");
+            //ViewData["JobPositionId"] = new SelectList(_context.JobPosition, "Id", "Id");
+
+            ViewData["JobPositionTitles"] = _context.JobPosition
+                .Select(jp => new SelectListItem
+                {
+                    Value = jp.Id.ToString(),
+                    Text = jp.Title
+                }).ToList();
             return View();
         }
 
