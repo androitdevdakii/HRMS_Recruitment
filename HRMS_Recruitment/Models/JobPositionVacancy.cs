@@ -9,9 +9,9 @@ namespace HRMS_Recruitment.Models
         public bool IsDirApproved { get; set; }
         public bool IsPostedOnWebsite { get; set; }
         [DataType(DataType.Date)]
-        public DateTime PostingDate { get; set; }
+        public DateTime? PostingDate { get; set; }
         [DataType(DataType.Date)]
-        public DateTime ClosingDate { get; set; }
+        public DateTime? ClosingDate { get; set; }
         public int JobPositionId { get; set; }
         public JobPosition? JobPosition { get; set; }
 
