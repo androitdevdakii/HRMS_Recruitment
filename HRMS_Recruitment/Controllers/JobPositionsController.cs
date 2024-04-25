@@ -48,7 +48,12 @@ namespace HRMS_Recruitment.Controllers
         // GET: JobPositions/Create
         public IActionResult Create()
         {
-            ViewData["JobDepartmentId"] = new SelectList(_context.Set<JobDepartment>(), "Id", "Id");
+            ViewData["JobDepartmentNames"] = _context.JobDepartment
+                .Select(jd => new SelectListItem
+                {
+                    Value = jd.Id.ToString(),
+                    Text = jd.Name
+                }).ToList();
             return View();
         }
 
@@ -82,7 +87,12 @@ namespace HRMS_Recruitment.Controllers
             {
                 return NotFound();
             }
-            ViewData["JobDepartmentId"] = new SelectList(_context.Set<JobDepartment>(), "Id", "Id", jobPosition.JobDepartmentId);
+            ViewData["JobDepartmentNames"] = _context.JobDepartment
+                .Select(jd => new SelectListItem
+                {
+                    Value = jd.Id.ToString(),
+                    Text = jd.Name
+                }).ToList();
             return View(jobPosition);
         }
 
