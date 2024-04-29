@@ -17,7 +17,5 @@ namespace HRMS_Recruitment.Models
         public string CvName { get; set; }
         public int JobPositionVacancyId;
 
-        
-
     }
 }
