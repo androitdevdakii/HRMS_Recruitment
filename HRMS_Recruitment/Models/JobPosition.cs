@@ -8,6 +8,5 @@
         public int JobDepartmentId { get; set; }
         public JobDepartment? Department { get; set; }
         public IEnumerable<JobTask>? JobTasks { get; } = [];
-
     }
 }
