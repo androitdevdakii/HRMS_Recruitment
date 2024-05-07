@@ -4,6 +4,7 @@ using HRMS_Recruitment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRMS_Recruitment.Migrations
 {
     [DbContext(typeof(HRMS_RecruitmentContext))]
-    partial class HRMS_RecruitmentContextModelSnapshot : ModelSnapshot
+    [Migration("20240507133746_CreateUserAuth")]
+    partial class CreateUserAuth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
