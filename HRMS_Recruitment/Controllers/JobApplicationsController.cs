@@ -7,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRMS_Recruitment.Data;
 using HRMS_Recruitment.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HRMS_Recruitment.Controllers
 {
-    public class JobDepartmentsController : Controller
+    public class JobApplicationsController : Controller
     {
         private readonly HRMS_RecruitmentContext _context;
 
-        public JobDepartmentsController(HRMS_RecruitmentContext context)
+        public JobApplicationsController(HRMS_RecruitmentContext context)
         {
             _context = context;
         }
 
-        // GET: JobDepartments
+        // GET: JobApplications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.JobDepartment.ToListAsync());
+            return View(await _context.JobApplication.ToListAsync());
         }
 
-        // GET: JobDepartments/Details/5
-        [Authorize]
+        // GET: JobApplications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +33,39 @@ namespace HRMS_Recruitment.Controllers
                 return NotFound();
             }
 
-            var jobDepartment = await _context.JobDepartment
+            var jobApplication = await _context.JobApplication
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (jobDepartment == null)
+            if (jobApplication == null)
             {
                 return NotFound();
             }
 
-            return View(jobDepartment);
+            return View(jobApplication);
         }
 
-        // GET: JobDepartments/Create
+        // GET: JobApplications/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: JobDepartments/Create
+        // POST: JobApplications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] JobDepartment jobDepartment)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,CvFile,CvName")] JobApplication jobApplication)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jobDepartment);
+                _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(jobDepartment);
+            return View(jobApplication);
         }
 
-        // GET: JobDepartments/Edit/5
+        // GET: JobApplications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +73,22 @@ namespace HRMS_Recruitment.Controllers
                 return NotFound();
             }
 
-            var jobDepartment = await _context.JobDepartment.FindAsync(id);
-            if (jobDepartment == null)
+            var jobApplication = await _context.JobApplication.FindAsync(id);
+            if (jobApplication == null)
             {
                 return NotFound();
             }
-            return View(jobDepartment);
+            return View(jobApplication);
         }
 
-        // POST: JobDepartments/Edit/5
+        // POST: JobApplications/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] JobDepartment jobDepartment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,CvFile,CvName")] JobApplication jobApplication)
         {
-            if (id != jobDepartment.Id)
+            if (id != jobApplication.Id)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace HRMS_Recruitment.Controllers
             {
                 try
                 {
-                    _context.Update(jobDepartment);
+                    _context.Update(jobApplication);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobDepartmentExists(jobDepartment.Id))
+                    if (!JobApplicationExists(jobApplication.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +113,10 @@ namespace HRMS_Recruitment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(jobDepartment);
+            return View(jobApplication);
         }
 
-        // GET: JobDepartments/Delete/5
+        // GET: JobApplications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,34 +124,34 @@ namespace HRMS_Recruitment.Controllers
                 return NotFound();
             }
 
-            var jobDepartment = await _context.JobDepartment
+            var jobApplication = await _context.JobApplication
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (jobDepartment == null)
+            if (jobApplication == null)
             {
                 return NotFound();
             }
 
-            return View(jobDepartment);
+            return View(jobApplication);
         }
 
-        // POST: JobDepartments/Delete/5
+        // POST: JobApplications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var jobDepartment = await _context.JobDepartment.FindAsync(id);
-            if (jobDepartment != null)
+            var jobApplication = await _context.JobApplication.FindAsync(id);
+            if (jobApplication != null)
             {
-                _context.JobDepartment.Remove(jobDepartment);
+                _context.JobApplication.Remove(jobApplication);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JobDepartmentExists(int id)
+        private bool JobApplicationExists(int id)
         {
-            return _context.JobDepartment.Any(e => e.Id == id);
+            return _context.JobApplication.Any(e => e.Id == id);
         }
     }
 }
