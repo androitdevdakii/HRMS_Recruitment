@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRMS_Recruitment.Migrations
 {
     [DbContext(typeof(HRMS_RecruitmentContext))]
-    [Migration("20240507133746_CreateUserAuth")]
-    partial class CreateUserAuth
+    [Migration("20240508115337_InitialSchema")]
+    partial class InitialSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,67 @@ namespace HRMS_Recruitment.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HRMS_Recruitment.Models.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gender");
+                });
+
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobApplicant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NIN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OverallExperience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlaceOfResidence")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prefix")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenderId");
+
+                    b.ToTable("JobApplicant");
+                });
 
             modelBuilder.Entity("HRMS_Recruitment.Models.JobApplication", b =>
                 {
@@ -77,6 +138,71 @@ namespace HRMS_Recruitment.Migrations
                     b.ToTable("JobDepartment");
                 });
 
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobEducation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("CGPA")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<DateTime?>("GraduationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Insitute")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Program")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobEducation");
+                });
+
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobExperience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Achievements")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Employer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JobApplicantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobApplicantId");
+
+                    b.ToTable("JobExperience");
+                });
+
             modelBuilder.Entity("HRMS_Recruitment.Models.JobPosition", b =>
                 {
                     b.Property<int>("Id")
@@ -91,12 +217,17 @@ namespace HRMS_Recruitment.Migrations
                     b.Property<int>("JobDepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("JobQualificationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("JobDepartmentId");
+
+                    b.HasIndex("JobQualificationId");
 
                     b.ToTable("JobPosition");
                 });
@@ -134,6 +265,39 @@ namespace HRMS_Recruitment.Migrations
                     b.ToTable("JobPositionVacancy");
                 });
 
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobQualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("JobQualificationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobQualificationId");
+
+                    b.ToTable("JobQualification");
+                });
+
             modelBuilder.Entity("HRMS_Recruitment.Models.JobTask", b =>
                 {
                     b.Property<int>("Id")
@@ -151,6 +315,36 @@ namespace HRMS_Recruitment.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobTask");
+                });
+
+            modelBuilder.Entity("JobApplicantJobEducation", b =>
+                {
+                    b.Property<int>("JobApplicantsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobEducationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("JobApplicantsId", "JobEducationsId");
+
+                    b.HasIndex("JobEducationsId");
+
+                    b.ToTable("JobApplicantJobEducation");
+                });
+
+            modelBuilder.Entity("JobApplicantJobQualification", b =>
+                {
+                    b.Property<int>("ApplicantsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobQualificationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicantsId", "JobQualificationsId");
+
+                    b.HasIndex("JobQualificationsId");
+
+                    b.ToTable("JobApplicantJobQualification");
                 });
 
             modelBuilder.Entity("JobPositionJobTask", b =>
@@ -370,6 +564,17 @@ namespace HRMS_Recruitment.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobApplicant", b =>
+                {
+                    b.HasOne("HRMS_Recruitment.Models.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gender");
+                });
+
             modelBuilder.Entity("HRMS_Recruitment.Models.JobApplication", b =>
                 {
                     b.HasOne("HRMS_Recruitment.Models.JobPositionVacancy", "JobVacancy")
@@ -381,6 +586,17 @@ namespace HRMS_Recruitment.Migrations
                     b.Navigation("JobVacancy");
                 });
 
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobExperience", b =>
+                {
+                    b.HasOne("HRMS_Recruitment.Models.JobApplicant", "JobApplicant")
+                        .WithMany("JobExperiences")
+                        .HasForeignKey("JobApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobApplicant");
+                });
+
             modelBuilder.Entity("HRMS_Recruitment.Models.JobPosition", b =>
                 {
                     b.HasOne("HRMS_Recruitment.Models.JobDepartment", "Department")
@@ -388,6 +604,10 @@ namespace HRMS_Recruitment.Migrations
                         .HasForeignKey("JobDepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HRMS_Recruitment.Models.JobQualification", null)
+                        .WithMany("Positions")
+                        .HasForeignKey("JobQualificationId");
 
                     b.Navigation("Department");
                 });
@@ -401,6 +621,43 @@ namespace HRMS_Recruitment.Migrations
                         .IsRequired();
 
                     b.Navigation("JobPosition");
+                });
+
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobQualification", b =>
+                {
+                    b.HasOne("HRMS_Recruitment.Models.JobQualification", null)
+                        .WithMany("Qualifications")
+                        .HasForeignKey("JobQualificationId");
+                });
+
+            modelBuilder.Entity("JobApplicantJobEducation", b =>
+                {
+                    b.HasOne("HRMS_Recruitment.Models.JobApplicant", null)
+                        .WithMany()
+                        .HasForeignKey("JobApplicantsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HRMS_Recruitment.Models.JobEducation", null)
+                        .WithMany()
+                        .HasForeignKey("JobEducationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobApplicantJobQualification", b =>
+                {
+                    b.HasOne("HRMS_Recruitment.Models.JobApplicant", null)
+                        .WithMany()
+                        .HasForeignKey("ApplicantsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HRMS_Recruitment.Models.JobQualification", null)
+                        .WithMany()
+                        .HasForeignKey("JobQualificationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JobPositionJobTask", b =>
@@ -469,9 +726,21 @@ namespace HRMS_Recruitment.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobApplicant", b =>
+                {
+                    b.Navigation("JobExperiences");
+                });
+
             modelBuilder.Entity("HRMS_Recruitment.Models.JobDepartment", b =>
                 {
                     b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("HRMS_Recruitment.Models.JobQualification", b =>
+                {
+                    b.Navigation("Positions");
+
+                    b.Navigation("Qualifications");
                 });
 #pragma warning restore 612, 618
         }

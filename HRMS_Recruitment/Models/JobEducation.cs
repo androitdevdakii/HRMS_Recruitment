@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRMS_Recruitment.Models
 {
@@ -8,6 +9,7 @@ namespace HRMS_Recruitment.Models
         public string? Insitute { get; set; }
         public string? Program { get; set; }
         public string? Level { get; set; }
+        [Precision(3,2)]
         public decimal? CGPA { get; set; }
         [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
