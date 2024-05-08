@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRMS_Recruitment.Data;
 using HRMS_Recruitment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HRMS_Recruitment.Controllers
 {
@@ -26,6 +27,7 @@ namespace HRMS_Recruitment.Controllers
         }
 
         // GET: JobDepartments/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
