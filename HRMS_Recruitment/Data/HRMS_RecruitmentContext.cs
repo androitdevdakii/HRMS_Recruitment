@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 using Microsoft.EntityFrameworkCore;
-using HRMS_Recruitment.Models;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HRMS_Recruitment.Data
 {
-    public class HRMS_RecruitmentContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+    public class HRMS_RecruitmentContext : IdentityDbContext<HRMS_User>
     {
         public HRMS_RecruitmentContext (DbContextOptions<HRMS_RecruitmentContext> options)
             : base(options)

@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using HRMS_Recruitment.Data
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<HRMS_User> SignInManager
+@inject UserManager<HRMS_User> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
