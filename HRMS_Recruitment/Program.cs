@@ -78,5 +78,47 @@ using (var scope = app.Services.CreateScope())
         await userManager.CreateAsync(user, password);
         await userManager.AddToRoleAsync(user, "ADMIN");
     }
+
+     email = "hr@hrms.com";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new HRMS_User();
+        user.UserName = email;
+        user.Email = email;
+        user.FirstName = "HR";
+        user.LastName = "They";
+
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "HR");
+    }
+
+     email = "dir@hrms.com";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new HRMS_User();
+        user.UserName = email;
+        user.Email = email;
+        user.FirstName = "DIR";
+        user.LastName = "They";
+
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "DIR");
+    }
+
+    email = "hod@hrms.com";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new HRMS_User();
+        user.UserName = email;
+        user.Email = email;
+        user.FirstName = "HOD";
+        user.LastName = "They";
+
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "HOD");
+    }
 }
 app.Run();
