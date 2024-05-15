@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRMS_Recruitment.Data;
 using HRMS_Recruitment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HRMS_Recruitment.Controllers
 {
+    [Authorize(Roles = "HR")]
     public class JobApplicationsController : Controller
     {
         private readonly HRMS_RecruitmentContext _context;

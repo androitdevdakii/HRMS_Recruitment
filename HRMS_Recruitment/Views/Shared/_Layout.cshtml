@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using HRMS_Recruitment.Data
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<HRMS_User> SignInManager
+@inject UserManager<HRMS_User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,18 +28,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobPositionVacancies" asp-action="Index">Job Vaccancies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobPositions" asp-action="Index">Job Positions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobDepartments" asp-action="Index">Departments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="JobApplications" asp-action="Index">Job Applications</a>
-                        </li>
+                        @if (User.IsInRole("HR"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="JobPositionVacancies" asp-action="Index">Job Vaccancies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="JobPositions" asp-action="Index">Job Positions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="JobDepartments" asp-action="Index">Departments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="JobApplications" asp-action="Index">Job Applications</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

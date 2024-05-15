@@ -1,4 +1,5 @@
 using HRMS_Recruitment.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +17,13 @@ builder.Services.AddDefaultIdentity<HRMS_User>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
 
-}).AddEntityFrameworkStores<HRMS_RecruitmentContext>();
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<HRMS_RecruitmentContext>();
+
 builder.Services.AddRazorPages();
 
-var app = builder.Build();  
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -42,4 +46,37 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "ADMIN", "HOD", "HR", "DIR" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<HRMS_User>>();
+
+    string email = "admin@hrms.com";
+    string password = "admin123";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new HRMS_User();
+        user.UserName = email;
+        user.Email = email;
+        user.FirstName = "Admin";
+        user.LastName = "They";
+       
+        
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "ADMIN");
+    }
+}
 app.Run();
