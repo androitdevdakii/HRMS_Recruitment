@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Recruitment.Controllers
 {
-
     public class JobDepartmentsController : Controller
     {
         private readonly HRMS_RecruitmentContext _context;
