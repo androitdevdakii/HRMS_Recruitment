@@ -73,15 +73,16 @@ using (var scope = app.Services.CreateScope())
         user.Email = email;
         user.FirstName = "Admin";
         user.LastName = "They";
-       
-        
+
+
         await userManager.CreateAsync(user, password);
         await userManager.AddToRoleAsync(user, "ADMIN");
     }
 
-     email = "hr@hrms.com";
+    email = "hr@hrms.com";
     if (await userManager.FindByEmailAsync(email) == null)
     {
+        var HrRoles = new[] { "HOD", "HR" };
         var user = new HRMS_User();
         user.UserName = email;
         user.Email = email;
@@ -90,10 +91,10 @@ using (var scope = app.Services.CreateScope())
 
 
         await userManager.CreateAsync(user, password);
-        await userManager.AddToRoleAsync(user, "HR");
+        await userManager.AddToRolesAsync(user, HrRoles);
     }
 
-     email = "dir@hrms.com";
+    email = "dir@hrms.com";
     if (await userManager.FindByEmailAsync(email) == null)
     {
         var user = new HRMS_User();

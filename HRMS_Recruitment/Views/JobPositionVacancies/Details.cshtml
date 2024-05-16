@@ -69,7 +69,22 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
-    <form asp-action="SendToHrForApproval" asp-route-id="@Model.Id">
-        <input type="submit" value="Send for Approval" />
-    </form>
+    @if (User.IsInRole("HOD"))
+    {
+        <form asp-action="SendToHrForApproval" asp-route-id="@Model.Id">
+            <input type="submit" value="Send for Approval" class="mt-1" />
+        </form>
+        <form asp-action="CancelSendToHrForApproval" asp-route-id="@Model.Id">
+            <input type="submit" value="Recall Approval request" class="mt-1" />
+        </form>
+    }
+    @if (User.IsInRole("HR"))
+    {
+        <form asp-action="AcceptHrApproval" asp-route-id="@Model.Id">
+            <input type="submit" value="Approve" class="mt-1" />
+        </form>
+        <form asp-action="RejectHrApproval" asp-route-id="@Model.Id">
+            <input type="submit" value="Reject" class="mt-1" />
+        </form>
+    }
 </div>

@@ -139,7 +139,7 @@ namespace HRMS_Recruitment.Controllers
         // POST: JobPositionVacancies/SendToHrForApproval/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendToHrForApproval(int id, [Bind("Id,IsHrApproved,IsDirApproved,IsPostedOnWebsite,PostingDate,ClosingDate,JobPositionId")] JobPositionVacancy jobPositionVacancy)
+        public async Task<IActionResult> SendToHrForApproval(int id, [Bind("Id,IsHrApproved,IsDirApproved,IsPostedOnWebsite,PostingDate,ClosingDate,JobPositionId,IsSubmittedToHrForApproval")] JobPositionVacancy jobPositionVacancy)
         {
             if (id != jobPositionVacancy.Id)
             {
@@ -172,6 +172,43 @@ namespace HRMS_Recruitment.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelSendToHrForApproval(int id, [Bind("Id,IsHrApproved,IsDirApproved,IsPostedOnWebsite,PostingDate,ClosingDate,JobPositionId,IsSubmittedToHrForApproval")] JobPositionVacancy jobPositionVacancy)
+        {
+            if (id != jobPositionVacancy.Id)
+            {
+                return NotFound();
+            }
+
+            jobPositionVacancy = await _context.JobPositionVacancy
+                .Include(j => j.JobPosition)
+                .FirstOrDefaultAsync(JobPosition => JobPosition.Id == id);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    jobPositionVacancy.IsSubmittedToHrForApproval = false;
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!JobPositionVacancyExists(jobPositionVacancy.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
         // GET: JobPositionVacancies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
