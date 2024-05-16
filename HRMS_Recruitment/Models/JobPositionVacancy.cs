@@ -5,6 +5,8 @@ namespace HRMS_Recruitment.Models
     public class JobPositionVacancy
     {
         public int Id { get; set; }
+        public bool IsSubmittedToHrForApproval { get; set; }
+        public bool IsSubmittedToDirForApproval { get; set; }
         public bool IsHrApproved { get; set; }
         public bool IsDirApproved { get; set; }
         public bool IsPostedOnWebsite { get; set; }
@@ -14,6 +16,5 @@ namespace HRMS_Recruitment.Models
         public DateTime? ClosingDate { get; set; }
         public int JobPositionId { get; set; }
         public JobPosition? JobPosition { get; set; }
-
     }
 }

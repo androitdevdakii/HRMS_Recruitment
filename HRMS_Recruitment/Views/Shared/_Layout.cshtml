@@ -28,11 +28,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("HR"))
+                        @if (User.IsInRole("HOD"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPositionVacancies" asp-action="Index">Job Vaccancies</a>
                             </li>
+                        }
+                        @if (User.IsInRole("HR"))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPositions" asp-action="Index">Job Positions</a>
                             </li>
