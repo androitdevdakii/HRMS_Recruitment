@@ -18,31 +18,6 @@
                 <select asp-for="JobPositionId" class="form-control" asp-items="ViewBag.JobPositionTitles"></select>
                 <span asp-validation-for="JobPositionId" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsHrApproved" /> @Html.DisplayNameFor(model => model.IsHrApproved)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDirApproved" /> @Html.DisplayNameFor(model => model.IsDirApproved)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPostedOnWebsite" /> @Html.DisplayNameFor(model => model.IsPostedOnWebsite)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostingDate" class="control-label"></label>
-                <input asp-for="PostingDate" class="form-control" />
-                <span asp-validation-for="PostingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClosingDate" class="control-label"></label>
-                <input asp-for="ClosingDate" class="form-control" />
-                <span asp-validation-for="ClosingDate" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
