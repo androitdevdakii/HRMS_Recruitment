@@ -21,11 +21,14 @@ namespace HRMS_Recruitment.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<HRMS_User> _signInManager;
+        private readonly UserManager<HRMS_User> _userManager;
+
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<HRMS_User> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<HRMS_User> signInManager, UserManager<HRMS_User> userManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -116,6 +119,15 @@ namespace HRMS_Recruitment.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    // Redirect HR users to
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user != null)
+                    {
+                        if (await _userManager.IsInRoleAsync(user, "HR"))
+                        {
+                            return RedirectToRoute("/HR");
+                        }
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

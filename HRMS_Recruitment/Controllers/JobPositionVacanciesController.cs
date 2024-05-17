@@ -248,6 +248,6 @@ namespace HRMS_Recruitment.Controllers
             return _context.JobPositionVacancy.Any(e => e.Id == id);
         }
 
-        
+
     }
 }
